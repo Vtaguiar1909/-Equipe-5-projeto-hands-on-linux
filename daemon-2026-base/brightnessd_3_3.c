@@ -73,7 +73,7 @@ static int __attribute__((unused)) write_int_file(const char *path, int value)
         return -ENOSYS;
     }
 
-    int found = fprintf(ftpr, "%i", value);
+    int found = fprintf(ftpr, "%i\n", value);
 
     fclose(ftpr);
     if (found > 0)
@@ -90,7 +90,8 @@ static int ldr_to_brightness(int ldr, int max_brightness)
 
     // TASK 3.3: limite o LDR para 0-100, aplique MIN_PERCENT
     // e converta o percentual para a escala 1..max_brightness.
-    percent = MIN_PERCENT;
+    percent = max_brightness / MIN_PERCENT;
+
     (void)ldr;
     (void)max_brightness;
     int comparison = ldr * (max_brightness / 100);
